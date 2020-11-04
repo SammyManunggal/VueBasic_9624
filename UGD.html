@@ -34,11 +34,8 @@
     </div>
     
     <div>
-        <footer>
-            {{`${saya.nama} 
-            | ${saya.npm}  
+            {{`${saya.nama}  | ${saya.npm}  
             | ${saya.kelaspaw} `}}
-        </footer>
     </div>
 </div>
 
@@ -65,9 +62,6 @@
         methods:{
            hitung(){
             console.log(this.random);
-                
-
-                
                 if(this.inputanku==this.random){
                     this.jikabenar = true;
                     
@@ -75,9 +69,6 @@
                 else{
                     this.jikasalah = true;
                  }     
-                
-                
-                
            },
         },
     });
