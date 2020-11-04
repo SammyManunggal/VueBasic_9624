@@ -5,37 +5,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UNGUIDED</title>
     <script src="vue.js"></script>
+    <style>
+       div {
+        margin-left: auto;
+        margin-right: auto;
+        width: 20em
+           
+       }
+    </style>
 </head>
 <body>
 
 <div id="app">
     <div>
-        <h1>{{judul}}</h1>
-        <input type="number" v-model="inputanku"  placeholder="Inputkan angka Anda"/>
-        <button @click="hitung" >Tebak Angka</button>
-       
+        <h2>{{judul}}</h2>
+        <br>
+        <h4>{{judul2}}</h4>
+        <input type="number"  :disabled="matikan" v-model="inputanku" placeholder="Inputkan angka Anda"/>
+        <button @click="hitung" :disabled="matikan">Input Angka</button>
     </div>
     
-    
+    <div v-show="jikagagal">
+        <p>ANDA GAGAL MENEBAK JAWABANNYA, silahkan restart </p> 
+        <button @click="refreshPage"> RESTART GAME </button>
+        
+    </div>
     <div v-show="jikabenar">
-        <p>BENAR </p> 
-        
+        <p>SELAMAT JAWABAN ANDA BENAR, silahkan tekan tombol dibawah jika ingin main lagi </p>
+        <button @click="refreshPage"> RESTART GAME </button>
     </div>
+
     <div v-show="jikasalah">
-        <p>SALAH </p> 
-        
+        <p>SALAH, silahkan mencoba lagi</p> 
+        <button @click="ulang" > TRY AGAIN </button>
+    </div>
+    
+    <br><br><br>
+    <div>
+        <h4>Keterangan Permainan : </h4>
     </div>
     <div>
+        Hint Jawaban : {{random}}
+        <br>
         Kesempatan Yang tersisa : {{kesempatan}}
     </div>
 
-    <div>
-        HINT JAWABAN : {{random}}
-    </div>
     
+    <br> <br> <br>
     <div>
-            {{`${saya.nama}  | ${saya.npm}  
-            | ${saya.kelaspaw} `}}
+            {{`${saya.nama}   |   ${saya.npm}  
+            |   ${saya.kelaspaw} `}}
     </div>
 </div>
 
@@ -44,7 +63,8 @@
     new Vue({
         el: '#app',
         data: {
-            judul : 'Permainan Tebak Angkaa',
+            judul : 'Permainan Tebak Angka',
+            judul2 : 'silahkan inputkan angka anda dibawah',
             saya :{
                 nama : 'Sammy Manunggal',
                 npm : '180709624',
@@ -53,23 +73,46 @@
             random : Math.floor(Math.random() * 10),
             kesempatan : 3,
             tampung : false,
+
+            jikagagal : false,
             jikabenar : false,
             jikasalah : false,
-       
-            
             
         },
         methods:{
+            refreshPage(){
+                this.matikan = false;
+                location.reload();
+           },
+           ulang(){
+               this.matikan = false;
+               this.jikasalah=false;
+           },
            hitung(){
-            console.log(this.random);
+            if(this.kesempatan>1){
+                this.kesempatan--;
+
                 if(this.inputanku==this.random){
+                    this.matikan= true;
+                    this.kesempatan=3;
                     this.jikabenar = true;
                     
                 }
                 else{
+                    this.matikan= true;
                     this.jikasalah = true;
                  }     
+                 
+            } else {
+                this.matikan= true;
+                this.kesempatan=3;
+                this.jikagagal = true;
+                
+            }
+                
            },
+           
+           
         },
     });
 </script>
