@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TUGAS </title>
+    <script src="vue.js"></script>
+    <style>
+        div {
+         margin-left: auto;
+         margin-right: auto;
+         width: 20em
+            
+        }
+     </style>
+</head>
+<body>
+
+<div id="app">
+    <div>
+        <h2>{{judul}}</h2>
+        
+        <p>Masukkan Nama Anda</p>
+        <input type="text" v-model="nama" name="hapus" placeholder="nama"/>
+        <p>Masukkan Prioritas Anda</p>
+        <select v-model="prioritas" >
+            <option value="Penting">Penting</option>
+            
+            <option value="TidakPenting">Tidak Penting</option>
+            <option value="Biasa">Biasa</option>
+        </select>
+        <p>Catatan</p>
+        <input type="text"  v-model="catatan" placeholder="catatan"/>
+
+
+    </div>
+    <br>
+    <div>
+        <button @click="Save">Save</button>
+        <button @click="Kosong">Reset Input</button>
+        <button @click="Delete">Delete All List</button>
+    </div>
+    <div v-show="TodoList">
+        <h2>{{judul2}}</h2>
+        <p>{{memory}}</p> 
+        
+    </div>
+    <br> <br> <br>
+    <br> <br> <br>
+    <div>
+            {{`${saya.nama}   |   ${saya.npm}  
+            |   ${saya.kelaspaw} `}}
+    </div>
+   
+</div>
+
+</body>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            judul:'Mencatat To Do List',
+            judul2:'To Do List Yang Ada',
+            memory:[
+            ],
+
+            saya :{
+                nama : 'Sammy Manunggal',
+                npm : '180709624',
+                kelaspaw : 'Kelas D',
+            },
+            TodoList:false,
+            
+        },
+        methods:{
+            DeleteOne(){
+                
+                
+            },
+            Save(){
+                this.TodoList=true;
+                this.memory.push(this.prioritas, this.nama, this.catatan);
+                this.memory.push(" || ");
+            },
+            Delete(){
+                this.memory="";
+                this.TodoList=true;
+            },
+            Kosong() {
+                    this.nama="  ";
+                    this.prioritas="  ";
+                    this.catatan="  ";
+
+            }
+        },
+    });
+</script>
+</html>
